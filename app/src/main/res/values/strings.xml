@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Распаковщик кэша</string>
+    <string name="title_activity_main">Распаковщик Obb</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Распаковщик образов OBB</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Выбрать</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Выберете директорию кэша c obb файлами</string>
+    <string name="modwarning">Предупреждение. В процессе распаковки оригинальные obb-файлы будут удалены.</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

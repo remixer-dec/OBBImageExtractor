@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <TextView
+        android:id="@+id/textview_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_first_fragment"
+        app:layout_constraintBottom_toTopOf="@id/button_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.881" />
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="588dp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/obbFolderPath"
+        android:layout_width="246dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/button_first"
+        app:layout_constraintStart_toEndOf="@+id/button_first" />
+
+    <EditText
+        android:id="@+id/unpackedFolderPath"
+        android:layout_width="246dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/button_unpacked"
+        app:layout_constraintStart_toEndOf="@+id/button_unpacked" />
+
+    <TextView
+        android:id="@+id/unpackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="88dp"
+        android:text="Выберете директорию для распаковки кэша"
+        app:layout_constraintStart_toStartOf="@+id/textview_first"
+        app:layout_constraintTop_toBottomOf="@+id/button_first" />
+
+    <Button
+        android:id="@+id/button_unpacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="416dp"
+        android:text="Выбрать"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unpackTextView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonUnpack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Распаковать"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/unpackTextView"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="@+id/unpackTextView"
+        app:layout_constraintTop_toBottomOf="@+id/unpackedFolderPath"
+        app:layout_constraintVertical_bias="0.095" />
+
+    <TextView
+        android:id="@+id/obbFoundText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_first"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/textview_first"
+        app:layout_constraintTop_toBottomOf="@+id/obbFolderPath" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/modwarning"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/statusText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/altCopy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Альтернативный метод копирования файлов"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonUnpack"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="@+id/buttonUnpack"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUnpack" />
+
+    <TextView
+        android:id="@+id/androidEleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Обнаружен Android 11+. \n Нажмите сюда чтобы выдать права для доступа к Android/obb."
+        android:textAlignment="center"
+        android:textColor="#F8B49F"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/altCopy"
+        app:layout_constraintStart_toStartOf="@+id/altCopy"
+        app:layout_constraintTop_toBottomOf="@+id/altCopy" />
+
+    <TextView
+        android:id="@+id/noVMOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Это приложение не работает внутри VMOS."
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/androidEleven"
+        app:layout_constraintStart_toStartOf="@+id/androidEleven"
+        app:layout_constraintTop_toBottomOf="@+id/androidEleven" />
+
+</android.support.constraint.ConstraintLayout>
