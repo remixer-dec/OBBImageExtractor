@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,16 +42,12 @@ class ObbMounter {
     public void mountObbFile(String path) {
         try {
             path = moveObb(path, Environment.getExternalStorageDirectory() + "/" +
-                    "Android/obb/ru.remixer_dec.cache_extractor/");
+                    "Android/obb/" + BuildConfig.APPLICATION_ID + "/");
             Thread.sleep(120);
-            Log.d("MV",path);
-        } catch (Exception e) {
-            Log.e("E", e.toString());
-        }
+        } catch (Exception ignored) { }
         this.smanager.mountObb(path, null, new OnObbStateChangeListener() {
             @Override
             public void onObbStateChange(String path, int state) {
-                Log.d("M","STATE CHANGE " + String.valueOf(state));
                if (state == 1 || state == 24) {
                    mountedPaths.add(path);
                    if (totalErrors != 0) {

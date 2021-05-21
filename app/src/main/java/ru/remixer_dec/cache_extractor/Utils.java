@@ -17,7 +17,7 @@ class ObbInfo {
     private String getPackageName(String packagePath) {
         String[] pathSplits = packagePath.split("/");
         String[] splits = pathSplits[pathSplits.length - 1].split("[.]");
-        return TextUtils.join(".", (String[]) Arrays.copyOfRange(splits, 2, splits.length-1));
+        return TextUtils.join(".", Arrays.copyOfRange(splits, 2, splits.length-1));
     }
 }
 

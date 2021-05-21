@@ -10,16 +10,13 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 class PathHelper {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static String getPathFromIntentUri(Context ctx, Uri uri) {
-        Log.d("ORIG",uri.toString());
         Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,
                 DocumentsContract.getTreeDocumentId(uri));
-        Log.d("Doc",docUri.toString());
         return getPath(ctx, docUri);
     }
     //https://gist.github.com/asifmujteba/d89ba9074bc941de1eaa#file-asfurihelper

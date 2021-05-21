@@ -35,21 +35,18 @@ class BGTask implements Runnable {
             MountedObbUnpacker.om.unmountObbFile(rawObbPath);
             Thread.sleep(250);
             Runtime.getRuntime().exec("rm " + rawObbPath).waitFor();
-                FirstFragment.activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (MountedObbUnpacker.errorCount == 0) {
-                            MountedObbUnpacker.completeCount++;
-                        FirstFragment.status.setText("Распаковка успешно завершена (" +
-                                MountedObbUnpacker.completeCount + "/" + MountedObbUnpacker.fileCount + ")");
-                            if (MountedObbUnpacker.completeCount == MountedObbUnpacker.fileCount) {
-                                FirstFragment.pbar.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                        else {
-                            FirstFragment.status.setText("Распаковка не удалась, возникли ошибки...");
+                FirstFragment.activity.runOnUiThread(() -> {
+                    if (MountedObbUnpacker.errorCount == 0) {
+                        MountedObbUnpacker.completeCount++;
+                    FirstFragment.status.setText(FirstFragment.activity.getApplicationContext().getString(R.string.unpackSuccess,
+                            MountedObbUnpacker.completeCount, MountedObbUnpacker.fileCount));
+                        if (MountedObbUnpacker.completeCount == MountedObbUnpacker.fileCount) {
                             FirstFragment.pbar.setVisibility(View.INVISIBLE);
                         }
+                    }
+                    else {
+                        FirstFragment.status.setText(R.string.unpackError);
+                        FirstFragment.pbar.setVisibility(View.INVISIBLE);
                     }
                 });
         } catch (InterruptedException | IOException e) {
@@ -65,7 +62,7 @@ class MountedObbUnpacker {
     public static int completeCount;
     public static ObbMounter om;
     public static boolean unpack(String mObbPath, String destPath, String folder, String rawObbPath) {
-        FirstFragment.status.setText("Распаковка obb (" + mObbPath + ") ...");
+        FirstFragment.status.setText(R.string.unpackingInProgress + mObbPath + ")");
         String[] splits = mObbPath.split("/");
         String obbFolderName = splits[splits.length-1];
         Thread thread = new Thread(new BGTask(mObbPath, destPath, obbFolderName, folder, rawObbPath));
@@ -82,10 +79,10 @@ class MountedObbUnpacker {
             String mountedObbPath = mounter.getMountedObbPath(rawObbPath);
             String fileName = Utils.getObbInfo(rawObbPath).fileName;
             String firstName = fileName.split("[.]")[0];
-            Boolean unpacked = unpack(mountedObbPath, destPath, firstName, rawObbPath);
+            unpack(mountedObbPath, destPath, firstName, rawObbPath);
         }
 
-        FirstFragment.status.setText("Распаковка идёт в фоновом режиме! Подождите...");
+        FirstFragment.status.setText(R.string.backgroundWorkerActive);
         FirstFragment.pbar.setVisibility(View.VISIBLE);
 
     }

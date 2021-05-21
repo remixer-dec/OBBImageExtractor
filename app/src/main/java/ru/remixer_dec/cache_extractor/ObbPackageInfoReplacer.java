@@ -1,13 +1,10 @@
 package ru.remixer_dec.cache_extractor;
 
-import android.text.TextUtils;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class ObbPackageInfoReplacer {
     private static long calculateOffset(String packageName) {
@@ -20,7 +17,7 @@ class ObbPackageInfoReplacer {
         long seekTo = raf.length() - calculateOffset(packageName);
         raf.seek(seekTo);
         ByteBuffer bbuf = ByteBuffer.allocate(4);
-        packageName = "ru.remixer_dec.cache_extractor";
+        packageName = BuildConfig.APPLICATION_ID;
         bbuf.order(ByteOrder.LITTLE_ENDIAN);
         bbuf.putInt(packageName.length());
         raf.write(bbuf.array());
@@ -34,7 +31,6 @@ class ObbPackageInfoReplacer {
         raf.write(bbuf.array());
         if (raf.getFilePointer() < raf.length()) {
             raf.setLength(raf.getFilePointer());
-            //raf.skipBytes((int) (raf.length() - raf.getFilePointer()));
         }
         raf.close();
     }

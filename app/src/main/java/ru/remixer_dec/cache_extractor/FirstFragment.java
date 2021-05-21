@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ru.remixer_dec.cache_extractor.databinding.FragmentFirstBinding;
 
@@ -37,7 +38,6 @@ public class FirstFragment extends Fragment {
     public static ProgressBar pbar;
     public static Activity activity;
     public static CheckBox compatibility;
-
 
     @Override
     public View onCreateView(
@@ -60,13 +60,10 @@ public class FirstFragment extends Fragment {
         //Android/obb access in Android 11
         if (SDK_INT >= Build.VERSION_CODES.R) {
             activity.findViewById(R.id.androidEleven).setVisibility(View.VISIBLE);
-            binding.androidEleven.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                            Uri.parse("package:ru.remixer_dec.cache_extractor")));
-                }
-            });
+            binding.androidEleven.setOnClickListener(view14 -> startActivity(
+                    new Intent(android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                    Uri.parse("package:" + BuildConfig.APPLICATION_ID)))
+            );
         }
 
         if (new File("/vmos.prop").exists() || new File("/guestOSInfo").exists()) {
@@ -74,46 +71,37 @@ public class FirstFragment extends Fragment {
         }
 
         File localObbDir = new File(Environment.getExternalStorageDirectory() + "/" +
-                "Android/obb/ru.remixer_dec.cache_extractor");
+                "Android/obb/" + BuildConfig.APPLICATION_ID);
         if (!localObbDir.exists()) {
             localObbDir.mkdirs();
         }
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                startActivityForResult(intent, 2);
-            }
+        binding.buttonFirst.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            startActivityForResult(intent, 2);
         });
-        binding.buttonUnpacked.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                startActivityForResult(intent, 3);
-            }
+        binding.buttonUnpacked.setOnClickListener(view12 -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            startActivityForResult(intent, 3);
         });
-        binding.buttonUnpack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                if (pbar.getVisibility() == View.VISIBLE) return;
-                //check if obb was already moved
-                if (new File(obbFiles.get(0)).exists()) {
-                    ObbPackageInfoReplacer.replaceDataInMultipleOBBs(obbFiles);
-                }
-                obbMounter.mountMultipleOBBs(obbFiles);
+        binding.buttonUnpack.setOnClickListener(view13 -> {
+            if (pbar.getVisibility() == View.VISIBLE) return;
+            //check if obb was already moved
+            if (new File(obbFiles.get(0)).exists()) {
+                ObbPackageInfoReplacer.replaceDataInMultipleOBBs(obbFiles);
             }
+            obbMounter.mountMultipleOBBs(obbFiles);
         });
 
-        obbMounter.init(getContext(),new OnAllMountedListener(){
+        obbMounter.init(Objects.requireNonNull(getContext()),new OnAllMountedListener(){
             @Override
             public void onError(int errors, int errorCode) {
-                status.setText("Возникли ошибки (" + errors + ") Код ошибки: " + errorCode);
+                status.setText(R.string.errors1 + errors + R.string.errors2 + errorCode);
             }
 
             @Override
             public void onSuccess(ArrayList<String> rawPaths) {
-                status.setText("Успешно смонтировано: " + rawPaths.size());
+                status.setText(R.string.mountSuccess + rawPaths.size());
                 MountedObbUnpacker.unpackMultiple(rawPaths, obbMounter, outputPath);
             }
         });
@@ -135,7 +123,6 @@ public class FirstFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 unpackedFolderPathChanged(editable.toString());
@@ -155,12 +142,13 @@ public class FirstFragment extends Fragment {
         }
         File[] files = new File(path).listFiles();
         obbFiles = new ArrayList<>();
-        for (int i=0, l=files.length; i <l; i++) {
+        for (int i = 0, l = Objects.requireNonNull(files).length; i <l; i++) {
             if (files[i].getAbsolutePath().endsWith(".obb")) {
                 obbFiles.add(files[i].getAbsolutePath());
             }
         }
-        ((TextView)getActivity().findViewById(R.id.obbFoundText)).setText("Обнаружено obb-файлов: " + obbFiles.size());
+        ((TextView)getActivity().findViewById(R.id.obbFoundText))
+                .setText(getString(R.string.obbDetected,obbFiles.size()));
     }
 
     private void unpackedFolderPathChanged(String path) {
@@ -169,7 +157,7 @@ public class FirstFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
+        // Exit when the action is canceled.
         if (resultCode == 0) {
             return;
         }
