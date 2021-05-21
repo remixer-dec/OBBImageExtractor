@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="errors1">Возникли ошибки (</string>
+    <string name="errors2">) Код ошибки: </string>
+    <string name="mountSuccess">Успешно смонтировано: </string>
+    <string name="obbDetected">Обнаружено obb-файлов: %1$d</string>
+    <string name="app_name">Распаковщик кэша</string>
+    <string name="unpackSuccess">Распаковка успешно завершена (%1$d/%2$d)</string>
+    <string name="unpackError">Распаковка не удалась, возникли ошибки…</string>
+    <string name="unpackingInProgress">"Распаковка obb ("</string>
+    <string name="backgroundWorkerActive">"Распаковка идёт в фоновом режиме. Подождите…"</string>
+    <string name="title_activity_main">Распаковщик Obb</string>
+    <string name="first_fragment_label">Распаковщик образов OBB</string>
+    <string name="selectFolder">Выбрать</string>
+    <string name="unpack">Распаковать</string>
+    <string name="copyCompatibility">Совместимый метод копирования файлов</string>
+    <string name="selectUnpackDir">Выберете директорию для распаковки кэша</string>
+    <string name="selectObbDir">Выберете директорию кэша c obb файлами</string>
+    <string name="Android11Detected">Обнаружен Android 11+. \n Нажмите сюда чтобы выдать права для доступа к Android/obb.</string>
+    <string name="VMOSDetected">Это приложение не работает внутри VMOS.</string>
+    <string name="modwarning">Предупреждение. В процессе распаковки оригинальные obb-файлы будут удалены.</string>
+</resources>
