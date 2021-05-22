@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import static ru.remixer_dec.cache_extractor.Utils.safeSpace;
+
 class BGTask implements Runnable {
     private String mObbPath;
     private String destPath;
@@ -28,13 +30,13 @@ class BGTask implements Runnable {
             if (FirstFragment.compatibility.isChecked()) {
                 MountedObbUnpacker.copyDirectory(new File(mObbPath), new File(destPath + "/" + folder));
             } else {
-                Runtime.getRuntime().exec("cp -r -R " + mObbPath + "/ " + destPath + "/").waitFor();
+                Runtime.getRuntime().exec("cp -r -R " + safeSpace(mObbPath) + "/ " + safeSpace(destPath) + "/").waitFor();
             }
-            Runtime.getRuntime().exec("mv " + destPath + "/" +
-                    obbFolderName + "/ " + destPath + "/" + folder + "/").waitFor();
+            Runtime.getRuntime().exec("mv " + safeSpace(destPath) + "/" +
+                    safeSpace(obbFolderName) + "/ " + safeSpace(destPath) + "/" + safeSpace(folder) + "/").waitFor();
             MountedObbUnpacker.om.unmountObbFile(rawObbPath);
             Thread.sleep(250);
-            Runtime.getRuntime().exec("rm " + rawObbPath).waitFor();
+            Runtime.getRuntime().exec("rm " + safeSpace(rawObbPath)).waitFor();
                 FirstFragment.activity.runOnUiThread(() -> {
                     if (MountedObbUnpacker.errorCount == 0) {
                         MountedObbUnpacker.completeCount++;

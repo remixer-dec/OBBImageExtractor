@@ -34,6 +34,8 @@ public class FirstFragment extends Fragment {
     private ArrayList<String> obbFiles;
     private ObbMounter obbMounter;
     private String outputPath;
+    private Boolean obbFolderIsInaccessible = true;
+    private int obbFileType = R.string.unknown;
     public static TextView status;
     public static ProgressBar pbar;
     public static Activity activity;
@@ -85,12 +87,22 @@ public class FirstFragment extends Fragment {
             startActivityForResult(intent, 3);
         });
         binding.buttonUnpack.setOnClickListener(view13 -> {
-            if (pbar.getVisibility() == View.VISIBLE) return;
-            //check if obb was already moved
-            if (new File(obbFiles.get(0)).exists()) {
-                ObbPackageInfoReplacer.replaceDataInMultipleOBBs(obbFiles);
+            if (pbar.getVisibility() == View.VISIBLE || obbFiles.size() == 0) return;
+            if (obbFolderIsInaccessible) {
+                status.setText(R.string.cantReadObbFolder);
+                return;
             }
-            obbMounter.mountMultipleOBBs(obbFiles);
+
+            if (obbFileType == R.string.zipFolder) {
+                ZipUnpacker.unzipMultiple(obbFiles, outputPath);
+            } else {
+                //check if obb was already modified and moved
+                if (new File(obbFiles.get(0)).exists()) {
+                    ObbPackageInfoReplacer.replaceDataInMultipleOBBs(obbFiles);
+                }
+                String key = ((EditText)getActivity().findViewById(R.id.obbKeyInput)).getText().toString();
+                obbMounter.mountMultipleOBBs(obbFiles, key);
+            }
         });
 
         obbMounter.init(Objects.requireNonNull(getContext()),new OnAllMountedListener(){
@@ -136,10 +148,13 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
-    private void obbFolderPathChanged(String path){
-        if (!new File(path).exists()) {
+    private void obbFolderPathChanged(String path) {
+        File f = new File(path);
+        if (!f.exists() || !f.canRead()) {
+            obbFolderIsInaccessible = true;
             return;
         }
+        obbFolderIsInaccessible = false;
         File[] files = new File(path).listFiles();
         obbFiles = new ArrayList<>();
         for (int i = 0, l = Objects.requireNonNull(files).length; i <l; i++) {
@@ -147,8 +162,14 @@ public class FirstFragment extends Fragment {
                 obbFiles.add(files[i].getAbsolutePath());
             }
         }
+        if (obbFiles.size() != 0) {
+            obbFileType = Utils.getObbFileType(obbFiles.get(0));
+            if (obbFileType == R.string.jobbImage) {
+                getActivity().findViewById(R.id.obbKeyInput).setVisibility(View.VISIBLE);
+            }
+        }
         ((TextView)getActivity().findViewById(R.id.obbFoundText))
-                .setText(getString(R.string.obbDetected,obbFiles.size()));
+                .setText(getString(R.string.obbDetected, obbFiles.size(), getString(obbFileType)));
     }
 
     private void unpackedFolderPathChanged(String path) {

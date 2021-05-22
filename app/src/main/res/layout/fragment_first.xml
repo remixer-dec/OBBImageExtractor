@@ -104,6 +104,9 @@
         android:layout_height="wrap_content"
         android:text="@string/modwarning"
         android:textAlignment="center"
+        android:singleLine="false"
+        android:maxLines="3"
+        android:textColor="@android:color/secondary_text_dark_nodisable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -155,5 +158,20 @@
         app:layout_constraintEnd_toEndOf="@+id/androidEleven"
         app:layout_constraintStart_toStartOf="@+id/androidEleven"
         app:layout_constraintTop_toBottomOf="@+id/androidEleven" />
+
+    <EditText
+        android:id="@+id/obbKeyInput"
+        android:layout_width="136dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="@string/noPassword"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUnpack"
+        app:layout_constraintEnd_toEndOf="@+id/buttonUnpack"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="@+id/buttonUnpack" />
 
 </android.support.constraint.ConstraintLayout>

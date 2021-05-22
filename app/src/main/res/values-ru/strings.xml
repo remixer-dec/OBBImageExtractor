@@ -3,7 +3,7 @@
     <string name="errors1">Возникли ошибки (</string>
     <string name="errors2">) Код ошибки: </string>
     <string name="mountSuccess">Успешно смонтировано: </string>
-    <string name="obbDetected">Обнаружено obb-файлов: %1$d</string>
+    <string name="obbDetected">Обнаружено obb-файлов: %1$d\n Формат: %2$s</string>
     <string name="app_name">Распаковщик кэша</string>
     <string name="unpackSuccess">Распаковка успешно завершена (%1$d/%2$d)</string>
     <string name="unpackError">Распаковка не удалась, возникли ошибки…</string>
@@ -19,4 +19,9 @@
     <string name="Android11Detected">Обнаружен Android 11+. \n Нажмите сюда чтобы выдать права для доступа к Android/obb.</string>
     <string name="VMOSDetected">Это приложение не работает внутри VMOS.</string>
     <string name="modwarning">Предупреждение. В процессе распаковки оригинальные obb-файлы будут удалены.</string>
+    <string name="cantReadObbFolder">Нет доступа к папке с obb. Попробуйте выбрать другую папку.</string>
+    <string name="zipFolder">ZIP-архив</string>
+    <string name="jobbImage">Образ диска</string>
+    <string name="unknown">Не определён</string>
+    <string name="noPassword">Без пароля</string>
 </resources>

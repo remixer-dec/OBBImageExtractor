@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static ru.remixer_dec.cache_extractor.Utils.safeSpace;
 
 interface OnAllMountedListener {
     void onSuccess(ArrayList<String> mountedPaths);
@@ -32,20 +35,20 @@ class ObbMounter {
     private String moveObb(String path, String targetPath) throws IOException, InterruptedException {
         String[] splits = path.split("/");
         String filename = splits[splits.length-1];
-        Runtime.getRuntime().exec("mkdir " + targetPath).waitFor();
-        Runtime.getRuntime().exec("mv " + path + " " + targetPath).waitFor();
+        Runtime.getRuntime().exec("mkdir " + safeSpace(targetPath)).waitFor();
+        Runtime.getRuntime().exec("mv " + safeSpace(path) + " " + safeSpace(targetPath)).waitFor();
         return targetPath + filename;
     }
     public void unmountObbFile(String path) {
         smanager.unmountObb(path, true, new OnObbStateChangeListener(){});
     }
-    public void mountObbFile(String path) {
+    public void mountObbFile(String path, String key) {
         try {
             path = moveObb(path, Environment.getExternalStorageDirectory() + "/" +
                     "Android/obb/" + BuildConfig.APPLICATION_ID + "/");
             Thread.sleep(120);
         } catch (Exception ignored) { }
-        this.smanager.mountObb(path, null, new OnObbStateChangeListener() {
+        this.smanager.mountObb(path, key.equals("") ? null : key, new OnObbStateChangeListener() {
             @Override
             public void onObbStateChange(String path, int state) {
                if (state == 1 || state == 24) {
@@ -68,10 +71,10 @@ class ObbMounter {
             }
         });
     }
-    public void mountMultipleOBBs(ArrayList<String> paths) {
+    public void mountMultipleOBBs(ArrayList<String> paths, String key) {
         this.totalFiles = paths.size();
         for (int i=0; i<paths.size(); i++) {
-            mountObbFile(paths.get(i));
+            mountObbFile(paths.get(i), key);
         }
     }
 }
