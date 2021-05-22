@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_white_mu_bg"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:foreground="#FFFFFF"
-        android:textColor="#FFFFFF"
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,6 @@
     <include layout="@layout/content_main" />
 
     <android.support.v7.widget.Toolbar
-        android:textColor="#FFFFFF"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

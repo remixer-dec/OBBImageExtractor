@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="mu_primary">#4B5E84</color>
+    <color name="mu_secondary">#AAC9FC</color>
+    <color name="mu_active">#A3B4DA</color>
+    <color name="mu_max_active">#708FC0</color>
+    <color name="mu_background">#EFF2FC</color>
+    <color name="mu_background_secondary">#FFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

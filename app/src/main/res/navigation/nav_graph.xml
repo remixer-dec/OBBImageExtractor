@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="ru.remixer_dec.cache_extractor.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/firstFragmentLabel"
         tools:layout="@layout/fragment_first">
     </fragment>
 </navigation>

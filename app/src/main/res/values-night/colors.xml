@@ -1,0 +1,8 @@
+<resources>
+    <color name="mu_primary">#EFF2FC</color>
+    <color name="mu_secondary">#3d4961</color>
+    <color name="mu_active">#6b7892</color>
+    <color name="mu_max_active">#a3badf</color>
+    <color name="mu_background">#313646</color>
+    <color name="mu_background_secondary">#1b212e</color>
+</resources>

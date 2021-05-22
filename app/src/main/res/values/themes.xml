@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.OBBCacheExtractor" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorPrimary">@color/mu_background</item>
+        <item name="colorPrimaryDark">@color/mu_background</item>
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
     </style>
@@ -16,4 +16,23 @@
     <style name="Theme.OBBCacheExtractor.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OBBCacheExtractor.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CheckBoxCustom" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="colorAccent">@color/mu_secondary</item>
+        <item name="android:textColorSecondary">@color/mu_secondary</item>
+    </style>
+    <style name="EditTextCustom" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mu_primary</item>
+        <item name="android:textColorPrimary">@color/mu_primary</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/mu_secondary</item>
+        <item name="colorControlNormal">@color/mu_secondary</item>
+        <item name="colorControlActivated">@color/mu_max_active</item>
+        <item name="colorControlHighlight">@color/mu_active</item>
+    </style>
+    <style name="ProgressBarCustom" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorControlNormal">@color/mu_secondary</item>
+        <item name="colorControlActivated">@color/mu_secondary</item>
+        <item name="colorControlHighlight">@color/mu_active</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight"/>
 </resources>

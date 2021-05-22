@@ -4,13 +4,13 @@
     <string name="errors2">) Код ошибки: </string>
     <string name="mountSuccess">Успешно смонтировано: </string>
     <string name="obbDetected">Обнаружено obb-файлов: %1$d\n Формат: %2$s</string>
-    <string name="app_name">Распаковщик кэша</string>
+    <string name="appName">Распаковщик кэша</string>
     <string name="unpackSuccess">Распаковка успешно завершена (%1$d/%2$d)</string>
     <string name="unpackError">Распаковка не удалась, возникли ошибки…</string>
     <string name="unpackingInProgress">"Распаковка obb ("</string>
     <string name="backgroundWorkerActive">"Распаковка идёт в фоновом режиме. Подождите…"</string>
-    <string name="title_activity_main">Распаковщик Obb</string>
-    <string name="first_fragment_label">Распаковщик образов OBB</string>
+    <string name="mainActivityTitle">Распаковщик Obb</string>
+    <string name="firstFragmentLabel">Распаковщик образов OBB</string>
     <string name="selectFolder">Выбрать</string>
     <string name="unpack">Распаковать</string>
     <string name="copyCompatibility">Совместимый метод копирования файлов</string>

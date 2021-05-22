@@ -87,6 +87,8 @@ public class FirstFragment extends Fragment {
             startActivityForResult(intent, 3);
         });
         binding.buttonUnpack.setOnClickListener(view13 -> {
+            if (outputPath == null || obbFiles == null) return;
+            if (outputPath.length() == 0 || obbFiles.isEmpty()) return;
             if (pbar.getVisibility() == View.VISIBLE || obbFiles.size() == 0) return;
             if (obbFolderIsInaccessible) {
                 status.setText(R.string.cantReadObbFolder);
