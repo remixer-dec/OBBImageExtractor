@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -72,12 +71,6 @@ public class FirstFragment extends Fragment {
             activity.findViewById(R.id.noVMOS).setVisibility(View.VISIBLE);
         }
 
-        File localObbDir = new File(Environment.getExternalStorageDirectory() + "/" +
-                "Android/obb/" + BuildConfig.APPLICATION_ID);
-        if (!localObbDir.exists()) {
-            localObbDir.mkdirs();
-        }
-
         binding.buttonFirst.setOnClickListener(view1 -> {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             startActivityForResult(intent, 2);
@@ -98,6 +91,15 @@ public class FirstFragment extends Fragment {
             if (obbFileType == R.string.zipFolder) {
                 ZipUnpacker.unzipMultiple(obbFiles, outputPath);
             } else {
+                //create own obb dir
+                File localObbDir = new File(this.getContext().getObbDir().getAbsolutePath());
+                if (!localObbDir.exists()) {
+                    localObbDir.mkdir();
+                }
+                if (!(new File(localObbDir.getAbsolutePath()).exists())) {
+                    status.setText(R.string.noOwnObbDir);
+                    return;
+                }
                 //check if obb was already modified and moved
                 if (new File(obbFiles.get(0)).exists()) {
                     ObbPackageInfoReplacer.replaceDataInMultipleOBBs(obbFiles);

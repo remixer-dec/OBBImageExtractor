@@ -35,10 +35,10 @@ class UnzipBGTask implements Runnable {
                     }
                 } else {
                     File unzip = new File("/system/bin/unzip");
-                    Boolean unzipAvailible = unzip.exists() && unzip.canExecute();
+                    Boolean unzipAvailable = unzip.exists() && unzip.canExecute();
                     File busybox = new File("/system/bin/busybox");
                     Boolean busyboxAvailable = busybox.exists() && busybox.canExecute();
-                    String binary = unzipAvailible ? "unzip " :  busyboxAvailable ? "busybox unzip " : "NO";
+                    String binary = unzipAvailable ? "unzip " :  busyboxAvailable ? "busybox unzip " : "NO";
                     if (binary.equals("NO")) {
                         throw new IOException("unzip binary not found");
                     }

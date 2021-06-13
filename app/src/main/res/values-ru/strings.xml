@@ -24,4 +24,5 @@
     <string name="jobbImage">Образ диска</string>
     <string name="unknown">Не определён</string>
     <string name="noPassword">Без пароля</string>
+    <string name="noOwnObbDir">Невозможно создать директорию obb для этого приложения. Для Android 11+ может понадобиться разрешение установки из неизвестных источников.</string>
 </resources>

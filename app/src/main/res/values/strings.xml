@@ -23,4 +23,5 @@
     <string name="jobbImage">Disk image</string>
     <string name="unknown">Unknown</string>
     <string name="noPassword">No password</string>
+    <string name="noOwnObbDir">Unable to create obb folder for this app. For Android 11+ unknown sources permission can help.</string>
 </resources>

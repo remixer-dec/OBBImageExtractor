@@ -6,7 +6,10 @@ import android.os.storage.OnObbStateChangeListener;
 import android.os.storage.StorageManager;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import static ru.remixer_dec.cache_extractor.Utils.safeSpace;
@@ -35,8 +38,16 @@ class ObbMounter {
     private String moveObb(String path, String targetPath) throws IOException, InterruptedException {
         String[] splits = path.split("/");
         String filename = splits[splits.length-1];
-        Runtime.getRuntime().exec("mkdir " + safeSpace(targetPath)).waitFor();
-        Runtime.getRuntime().exec("mv " + safeSpace(path) + " " + safeSpace(targetPath)).waitFor();
+        if (FirstFragment.compatibility.isChecked()) {
+            try {
+                new File(path).renameTo(new File(targetPath + filename));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            String cmd = "mv " + safeSpace(path) + " " + safeSpace(targetPath);
+            Runtime.getRuntime().exec(cmd).waitFor();
+        }
         return targetPath + filename;
     }
     public void unmountObbFile(String path) {
